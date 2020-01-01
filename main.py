@@ -4,7 +4,7 @@ import math
 from _tkinter import TclError
 
 # Other module imports
-from classdefs import Button, btns
+from classdefs import Button, btns, Tile, tilesList, TileField
 
 # Window boilerplate
 wn = turtle.Screen()
@@ -14,6 +14,9 @@ wn.bgcolor('#464646'); wn.listen(); wn.tracer(0)
 
 # Exiting
 wn.onkeypress(turtle.bye, 'Escape')
+
+# Tiles
+world = TileField(2, 'water')
 
 def game(*args):
 
@@ -29,4 +32,4 @@ try:
 except (TclError, turtle.Terminator):
 	pass;
 
-wn.mainloop()
+# THERE SHOULD BE NO MAINLOOP HERE

@@ -43,8 +43,27 @@ class Button():
 
 tilesList = []
 
+# Terrain colors for tiles
+# Will replace with textures later
+colorDict = {
+	'mountain':'#b5651d', 'plains':'#22bf03', 'water':'#1188d3', 'forest':'#116f23'
+}
+
 class Tile():
 	# Tiles have a terrain, position, and belonging units (also turtles, later.)
 	def __init__(self, terrain, position):
 		self.t = turtle.Turtle()
-		self.t.speed(0); self.t.penup(); self.t.goto(position[0], position[1]); self.u = None
+		self.t.speed(0); self.t.penup(); self.t.shape('square'); self.t.shapesize(stretch_len = 5, stretch_wid = 5)
+		self.t.color(colorDict[terrain]); self.t.goto(position[0]*110, position[1]*110); self.u = None # Note that *110 is 20*5 (size) + 10 (border)
+
+		tilesList.append(self)
+
+class TileField():
+	# To create a large field of tiles - for now, all one type.
+	def __init__(self, size, tile): # Size is doubled plus one
+		tileDict = {} # key - coords; value - Tile instance
+		for i in range(-size, size+1):
+			for j in range(-size, size+1):
+
+				# Gonna admit right now - this line is REALLY shaky, but will improve later
+				new = Tile(tile, [i, j])
