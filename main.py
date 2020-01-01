@@ -24,11 +24,15 @@ wn.title('Questionable means of exploration')
 
 init_binds(wn)
 
+# Dummy button
+ttl = Button(0, -300, 6, 4, '#100033', 'QME by Adam', '#226622')
+
 def game(*args):
 
 	while True:
 		wn.update()
 
+		# So that the text doesn't get written over
 		for b in btns:
 			b.write_text()
 

@@ -26,7 +26,7 @@ class Button():
 		self.i = turtle.Turtle(); self.i.speed(0); self.i.hideturtle(); self.i.penup()
 
 		# Text
-		fontSize = int(40*self.wid/len(self.text)//1)
+		fontSize = int(30*self.wid/len(self.text)//1)
 
 		self.i.goto(self.x, self.y - fontSize/2)
 		self.i.color(self.tc); self.i.write(self.text, align = 'center', font = ('Times', fontSize, 'bold'))
@@ -46,7 +46,8 @@ tilesList = []
 # Terrain colors for tiles
 # Will replace with textures later
 colorDict = {
-	'mountain':'#b5651d', 'plains':'#22bf03', 'water':'#1188d3', 'forest':'#116f23'
+	'mountain':'#b5651d', 'fertile':'#95a308', 'water':'#1188d3', 'forest':'#116f23',
+	'plains':'#55bf03', 'high': '#222222', 'deep':'#08446a', 'desert': '#bfa203'
 }
 
 class Tile():
