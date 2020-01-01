@@ -22,12 +22,13 @@ WORLD_SIZE = 20
 world = TileField(WORLD_SIZE, mkworld(WORLD_SIZE))
 wn.title('Questionable means of exploration')
 
+# Scrolling
 init_binds(wn)
 
-# Dummy button
+# Dummy button for testing
 ttl = Button(0, -300, 6, 4, '#100033', 'QME by Adam', '#226622')
 
-def game(*args):
+def game():
 
 	while True:
 		wn.update()
@@ -39,6 +40,7 @@ def game(*args):
 try:
 	game()
 
+# These errors that happen
 except (TclError, turtle.Terminator):
 	pass;
 
