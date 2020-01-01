@@ -59,11 +59,11 @@ class Tile():
 		tilesList.append(self)
 
 class TileField():
-	# To create a large field of tiles - for now, all one type.
-	def __init__(self, size, tile): # Size is doubled plus one
+	# To create a large field of tiles - 'reading' from map.
+	def __init__(self, size, wmap): # Size is doubled plus one
 		tileDict = {} # key - coords; value - Tile instance
 		for i in range(-size, size+1):
 			for j in range(-size, size+1):
 
 				# Gonna admit right now - this line is REALLY shaky, but will improve later
-				new = Tile(tile, [i, j])
+				new = Tile(wmap[(i, j)], [i, j])

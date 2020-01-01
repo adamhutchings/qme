@@ -5,6 +5,7 @@ from _tkinter import TclError
 
 # Other module imports
 from classdefs import Button, btns, Tile, tilesList, TileField
+from level_gen import mkworld
 
 # Window boilerplate
 wn = turtle.Screen()
@@ -16,7 +17,7 @@ wn.bgcolor('#464646'); wn.listen(); wn.tracer(0)
 wn.onkeypress(turtle.bye, 'Escape')
 
 # Tiles
-world = TileField(2, 'water')
+world = TileField(5, mkworld(5))
 
 # 'Scrolling' in all directions
 def up():
