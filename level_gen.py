@@ -24,15 +24,20 @@ def create_centers(size):
 			# Centers can't be fertile plains
 			while True:
 				final_output[tile] = random.choice(tileTypes)
-				if final_output[tile] not in ['fertile', 'water']:
+				if final_output[tile] != 'fertile':
 					break
+
+			# Some centers should be deep
+			for center in centers:
+				if final_output[center] == 'water':
+					final_output[center] = random.choice(['water', 'deep', 'deep'])
 
 def distance(tile1, tile2):
 	return math.sqrt((tile1[0] - tile2[0])**2 + (tile1[1] - tile2[1])**2)
 
 # All tiles within a given radius
 def radius(tile, dis):
-	return [near for near in final_output.keys() if distance(tile, near) < dis]
+	return [near for near in final_output.keys() if distance(tile, near) <= dis]
 
 def nearest_center(tile):
 	for dis in range(0, 8):
@@ -44,7 +49,7 @@ def nearest_center(tile):
 	centers.append(tile); return tile
 
 fadeLevels = {'mountain': 6, 'water': 1.5, 'forest': 3.5, 'plains': 2.5,
-'high':10, 'deep':2.5, 'desert':3.5}
+'high':10, 'deep':2.5, 'desert':3.5, 'fertile':5}
 
 # Now, center types spread to nearby tiles
 def spread():
@@ -76,7 +81,7 @@ def complete():
 	# Making deep water shallow next to land
 	for tile in final_output.keys():
 		if final_output[tile] == 'deep':
-			for other in radius(tile, 1.5):
+			for other in radius(tile, 1):
 				if final_output[other] not in ['deep', 'water']:
 					final_output[tile] = 'water'
 
@@ -84,7 +89,7 @@ def complete():
 	for tile in final_output.keys():
 		if final_output[tile] == 'water':
 			oc = True
-			for other in radius(tile, 3):
+			for other in radius(tile, 1.5):
 				if final_output[other] not in ['deep', 'water']:
 					oc = False
 
