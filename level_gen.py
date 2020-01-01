@@ -20,7 +20,12 @@ def create_centers(size):
 		# 4% chance of being a center
 		if random.randrange(1, 25) == 5:
 			centers.append(tile)
-			final_output[tile] = random.choice(tileTypes)
+
+			# Centers can't be fertile plains
+			while True:
+				final_output[tile] = random.choice(tileTypes)
+				if final_output[tile] not in ['fertile', 'water']:
+					break
 
 def distance(tile1, tile2):
 	return math.sqrt((tile1[0] - tile2[0])**2 + (tile1[1] - tile2[1])**2)
@@ -38,8 +43,8 @@ def nearest_center(tile):
 	# If there are no nearby centers
 	centers.append(tile); return tile
 
-fadeLevels = {'mountain': 6, 'water': 1.5, 'forest': 3, 'plains': 2.5,
-'fertile':5, 'high':10, 'deep':2.5, 'desert':3.5}
+fadeLevels = {'mountain': 6, 'water': 1.5, 'forest': 3.5, 'plains': 2.5,
+'high':10, 'deep':2.5, 'desert':3.5}
 
 # Now, center types spread to nearby tiles
 def spread():
@@ -64,7 +69,9 @@ def spread():
 def complete():
 	for tile in final_output.keys():
 		if final_output[tile] == None:
-			final_output[tile] = random.choice(tileTypes)
+			while True:
+				final_output[tile] = random.choice(tileTypes)
+				if final_output[tile] != 'fertile': break;
 
 	# Making deep water shallow next to land
 	for tile in final_output.keys():
@@ -83,6 +90,11 @@ def complete():
 
 			if oc:
 				final_output[tile] = 'deep'
+
+	# Adding splotches of fertile plains
+	for tile in final_output.keys():
+		if final_output[tile] in ['plains', 'desert', 'forest'] and random.randrange(1, 10) == 5:
+			final_output[tile] = 'fertile'
 
 def mkworld(size):
 	start_world(size); create_centers(size); spread(); complete()
@@ -111,5 +123,13 @@ def mkworld(size):
 					for other in radius(tile, 1.5):
 						if final_output[other] in ['water', 'deep']:
 							final_output[other] = random.choice(['plains', 'forest', 'desert'])
+
+	elif tCounts['water'] + tCounts['deep'] < size/3:
+		for tile in final_output:
+			if final_output[tile] not in ['water', 'deep']:
+				if random.randrange(1, 30) == 5:
+					for other in radius(tile, 1.5):
+						if final_output[other] not in ['water', 'deep']:
+							final_output[other] = 'water'
 
 	return final_output
