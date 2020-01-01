@@ -5,7 +5,7 @@ import math
 
 final_output = {}
 
-tileTypes = ['mountain', 'water', 'plains', 'forest']
+tileTypes = ['mountain', 'water', 'plains', 'forest', 'fertile', 'high', 'deep', 'desert']
 
 def start_world(size):
 	for i in range(-size, size+1):
@@ -38,7 +38,8 @@ def nearest_center(tile):
 	# If there are no nearby centers
 	centers.append(tile); return tile
 
-fadeLevels = {'mountain': 5, 'water': 1, 'forest': 2, 'plains': 2}
+fadeLevels = {'mountain': 6, 'water': 1.5, 'forest': 3, 'plains': 2.5,
+'fertile':5, 'high':10, 'deep':2.5, 'desert':3.5}
 
 # Now, center types spread to nearby tiles
 def spread():
@@ -65,7 +66,50 @@ def complete():
 		if final_output[tile] == None:
 			final_output[tile] = random.choice(tileTypes)
 
-	return final_output
+	# Making deep water shallow next to land
+	for tile in final_output.keys():
+		if final_output[tile] == 'deep':
+			for other in radius(tile, 1.5):
+				if final_output[other] not in ['deep', 'water']:
+					final_output[tile] = 'water'
+
+	# Making shallow water deep far away from land
+	for tile in final_output.keys():
+		if final_output[tile] == 'water':
+			oc = True
+			for other in radius(tile, 3):
+				if final_output[other] not in ['deep', 'water']:
+					oc = False
+
+			if oc:
+				final_output[tile] = 'deep'
 
 def mkworld(size):
-	start_world(size); create_centers(size); spread(); complete(); return final_output
+	start_world(size); create_centers(size); spread(); complete()
+
+	# Making sure the world is well balanced
+
+	# How many of each tile type there are
+	tCounts = {}
+	for tType in tileTypes:
+		tCounts[tType] = 0
+
+	for tile in final_output:
+		tCounts[final_output[tile]] += 1
+
+	size = len(final_output.keys())
+
+	if tCounts['mountain'] + tCounts['high'] > size/8:
+		for tile in final_output.keys():
+			if final_output[tile] == 'mountain' or final_output[tile] == 'high':
+				final_output[tile] = random.choice(['plains', 'fertile', 'water', 'mountain'])
+
+	if tCounts['water'] + tCounts['deep'] > size*2/3:
+		for tile in final_output:
+			if final_output[tile] in ['water', 'deep']:
+				if random.randrange(1, 30) == 5:
+					for other in radius(tile, 1.5):
+						if final_output[other] in ['water', 'deep']:
+							final_output[other] = random.choice(['plains', 'forest', 'desert'])
+
+	return final_output
