@@ -25,17 +25,12 @@ wn.title('Questionable means of exploration')
 # Scrolling
 init_binds(wn)
 
-# Dummy button for testing
-ttl = Button(0, -300, 6, 4, '#100033', 'QME by Adam', '#226622')
+# Removed button, now uses textures (NOT TESTED)
 
 def game():
 
 	while True:
 		wn.update()
-
-		# So that the text doesn't get written over
-		for b in btns:
-			b.write_text()
 
 try:
 	game()
