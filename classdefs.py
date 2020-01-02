@@ -7,29 +7,20 @@ class Button():
 	# (NOTE: width and height are in pixels, multiplied by 20)
 	# There are two parts - an invisible turtle that writes the text, (self.i)
 	# and a visible turtle that is the box and registers clicks (self.t).
-	def __init__(self, x, y, width, height, buttonColor, text, textColor):
+	def __init__(self, x, y, width, height, wn, texture):
 
 		# Setup
 		self.t = turtle.Turtle(); self.t.speed(0); self.t.penup(); self.t.goto(x, y)
 
 		# Main drawing
-		self.t.shape('square'); self.t.shapesize(stretch_len = width, stretch_wid = height); self.t.color(buttonColor)
+		self.t.shape('square'); self.t.shapesize(stretch_len = width, stretch_wid = height)
 
 		self.wid = width; self.x = x; self.y = y
 
+		# Texture
+		wn.addshape(texture); self.t.shape(texture)
+
 		btns.append(self)
-
-		self.text = text; self.tc = textColor
-
-	def write_text(self):
-		# Turtle to write the text
-		self.i = turtle.Turtle(); self.i.speed(0); self.i.hideturtle(); self.i.penup()
-
-		# Text
-		fontSize = int(30*self.wid/len(self.text)//1)
-
-		self.i.goto(self.x, self.y - fontSize/2)
-		self.i.color(self.tc); self.i.write(self.text, align = 'center', font = ('Times', fontSize, 'bold'))
 
 	def left_click_bind(self, fun):
 		self.t.onclick(fun)
@@ -68,3 +59,17 @@ class TileField():
 
 				# Gonna admit right now - this line is REALLY shaky, but will improve later
 				new = Tile(wmap[(i, j)], [i, j])
+
+# And now - creation of units
+class Unit():
+	def __init__(self, maxHP, attack, defense):
+		self.HP = maxHP; self.a = attack; self.d = defense; self.m = maxHP
+
+	def attack(self, other):
+		other.HP -= self.a/other.d
+
+	def die(self):
+		del self
+
+	def heal(self):
+		self.HP = self.m
