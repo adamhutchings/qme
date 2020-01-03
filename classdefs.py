@@ -1,7 +1,11 @@
 import turtle
-from main import find_tile
+
+# For textures - import path doesn't work for some reason
+from Textures import *
 
 btns = []
+
+wn = turtle.Screen()
 
 # Class for on-screen buttons
 class Button():
@@ -35,19 +39,29 @@ class Button():
 
 tilesList = []
 
+# Finding a tile
+# Takes in a list
+def find_tile(coors):
+	for tile in tilesList:
+		if tile.p == coors:
+			return tile
+
 # Terrain colors for tiles
 # Will replace with textures later
-colorDict = {
-	'mountain':'#b5651d', 'fertile':'#95a308', 'water':'#1188d3', 'forest':'#116f23',
-	'plains':'#55bf03', 'high': '#222222', 'deep':'#08446a', 'desert': '#bfa203'
+textureDict = {
+	'mountain':'mountians.gif', 'fertile':'furtaile-plains.gif', 'water':'ocean.gif', 'forest':'forest.gif',
+	'plains':'plains.gif', 'high': 'high-mountains.gif', 'deep':'deep-ocean.gif', 'desert': 'desert.gif'
 }
 
 class Tile():
 	# Tiles have a terrain, position, and belonging units (also turtles, later.)
-	def __init__(self, terrain, position):
+	def __init__(self, terrain, position, wn):
 		self.t = turtle.Turtle()
 		self.t.speed(0); self.t.penup(); self.t.shape('square'); self.t.shapesize(stretch_len = 5, stretch_wid = 5)
-		self.t.color(colorDict[terrain]); self.t.goto(position[0]*110, position[1]*110); self.u = None # Note that *110 is 20*5 (size) + 10 (border)
+		self.t.goto(position[0]*110, position[1]*110); self.u = None # Note that *110 is 20*5 (size) + 10 (border)
+
+		# Textures
+		wn.addshape(textureDict[terrain]); self.t.shape(textureDict[terrain]); 
 
 		tilesList.append(self); self.p = position
 
@@ -59,7 +73,7 @@ class TileField():
 			for j in range(-size, size+1):
 
 				# Gonna admit right now - this line is REALLY shaky, but will improve later
-				new = Tile(wmap[(i, j)], [i, j])
+				new = Tile(wmap[(i, j)], [i, j], wn)
 
 # And now - creation of units
 class Unit():

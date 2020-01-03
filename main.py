@@ -4,12 +4,11 @@ import math
 from _tkinter import TclError
 
 # Other module imports
-from classdefs import Button, btns, Tile, tilesList, TileField
+from classdefs import Button, btns, Tile, tilesList, TileField, find_tile, wn
 from level_gen import mkworld
 from scrolling import init_binds
 
 # Window boilerplate
-wn = turtle.Screen()
 wn.title('Loading...')
 wn.setup(height = 800, width = 800)
 wn.bgcolor('#464646'); wn.listen(); wn.tracer(0)
