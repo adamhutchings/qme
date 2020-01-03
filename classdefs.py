@@ -1,4 +1,5 @@
 import turtle
+from main import find_tile
 
 btns = []
 
@@ -48,7 +49,7 @@ class Tile():
 		self.t.speed(0); self.t.penup(); self.t.shape('square'); self.t.shapesize(stretch_len = 5, stretch_wid = 5)
 		self.t.color(colorDict[terrain]); self.t.goto(position[0]*110, position[1]*110); self.u = None # Note that *110 is 20*5 (size) + 10 (border)
 
-		tilesList.append(self)
+		tilesList.append(self); self.p = position
 
 class TileField():
 	# To create a large field of tiles - 'reading' from map.
@@ -62,8 +63,8 @@ class TileField():
 
 # And now - creation of units
 class Unit():
-	def __init__(self, maxHP, attack, defense):
-		self.HP = maxHP; self.a = attack; self.d = defense; self.m = maxHP
+	def __init__(self, maxHP, attack, defense, reach, mobility):
+		self.HP = maxHP; self.a = attack; self.d = defense; self.r = reach; self.l = mobility; self.m = maxHP;
 
 	def attack(self, other):
 		other.HP -= self.a/other.d
@@ -73,3 +74,24 @@ class Unit():
 
 	def heal(self):
 		self.HP = self.m
+
+# Unit stats
+from troopstats import *
+
+# Dirty lil' trick for init_lands
+from level_gen import radius
+
+# Game state system
+class GameState():
+
+	# Will store the amount of coins, the tiles owned, the tiles seen, and the current units/positions
+	def __init__(self, wealth, owned, vis, unitDict):
+		self.w = 10
+		self.ts = []
+		self.o = []
+		self.v = []
+		self.u = {}
+
+	# Coors is a list
+	def init_lands(self, centerCoors):
+		self.ts = self.o = self.u = [tile for tile in radius(centerCoors, 1.5)]
