@@ -30,4 +30,25 @@ class Berserker(BasicUnit):
 
 class Shieldman(BasicUnit):
 	def __init__(self):
-		super().__init__(15, 0.4, 3)
+		super().__init__(15, 2, 3)
+
+# Archers, catapults, spearmen and pikemen
+class WeakRanged(Unit):
+	def __init__(self, maxHP, attack, reach):
+		super().__init__(maxHP, attack, 0.8, reach, 1)
+
+class Archer(WeakRanged):
+	def __init__(self):
+		super().__init__(10, 4, 2)
+
+class Catapult(WeakRanged):
+	def __init__(self):
+		super().__init__(8, 10, 3)
+
+class Spearman(WeakRanged):
+	def __init__(self):
+		super().__init__(10, 8, 2)
+
+class Pikeman(WeakRanged):
+	def __init__(self):
+		super().__init__(12, 6, 3)
