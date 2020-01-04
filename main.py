@@ -4,7 +4,7 @@ import math
 from _tkinter import TclError
 
 # Other module imports
-from classdefs import Button, btns, Tile, tilesList, TileField, find_tile, wn
+from classdefs import Button, btns, Tile, tilesList, TileField, find_tile, wn, load_texts
 from level_gen import mkworld
 from scrolling import init_binds
 
@@ -24,12 +24,19 @@ wn.title('Questionable means of exploration')
 # Scrolling
 init_binds(wn)
 
+# Textures
+load_texts()
+
 # Removed button, now uses textures (NOT TESTED)
 
 def game():
 
 	while True:
 		wn.update()
+
+		# Loading tiles
+		for tile in tilesList:
+			tile.reload()
 
 try:
 	game()

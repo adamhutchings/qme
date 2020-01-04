@@ -49,9 +49,13 @@ def find_tile(coors):
 # Terrain colors for tiles
 # Will replace with textures later
 textureDict = {
-	'mountain':'mountians.gif', 'fertile':'furtaile-plains.gif', 'water':'ocean.gif', 'forest':'forest.gif',
-	'plains':'plains.gif', 'high': 'high-mountains.gif', 'deep':'deep-ocean.gif', 'desert': 'desert.gif'
+	'mountain':'Textures/mountains.gif', 'fertile':'Textures/fertile-plains.gif', 'water':'Textures/ocean.gif', 'forest':'Textures/forest.gif',
+	'plains':'Textures/plains.gif', 'high': 'Textures/high-mountains.gif', 'deep':'Textures/deep-ocean.gif', 'desert': 'Textures/desert.gif'
 }
+
+def load_texts():
+	for tex in textureDict.values():
+		wn.addshape(tex)
 
 class Tile():
 	# Tiles have a terrain, position, and belonging units (also turtles, later.)
@@ -60,10 +64,15 @@ class Tile():
 		self.t.speed(0); self.t.penup(); self.t.shape('square'); self.t.shapesize(stretch_len = 5, stretch_wid = 5)
 		self.t.goto(position[0]*110, position[1]*110); self.u = None # Note that *110 is 20*5 (size) + 10 (border)
 
-		# Textures
-		wn.addshape(textureDict[terrain]); self.t.shape(textureDict[terrain]); 
+		tilesList.append(self); self.p = position; self.tr = terrain
 
-		tilesList.append(self); self.p = position
+	def reload(self):
+		# Textures
+
+		if (self.t.xcor() < -400 or self.t.xcor() > 400) and (self.t.ycor() < -400 or self.t.ycor() > 400):
+			self.t.hideturtle()
+		else:
+			self.t.shape(textureDict[self.tr]); 
 
 class TileField():
 	# To create a large field of tiles - 'reading' from map.
