@@ -39,6 +39,8 @@ def game():
 		# Updating textures
 		update_texts()
 
+		# Add more things here later for the main game loop
+
 try:
 	game()
 
