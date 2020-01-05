@@ -1,6 +1,5 @@
 import turtle
 
-# For textures - import path doesn't work for some reason
 from Textures import *
 
 # List of buttons, in case needed later
@@ -87,10 +86,22 @@ class TileField():
 				# CLOSED: improved with tileDict
 				new = Tile(wmap[(i, j)], [i, j], wn)
 
+# For moving all units
+unitsList = []
+
 # And now - creation of units
 class Unit():
 	def __init__(self, maxHP, attack, defense, reach, mobility):
-		self.HP = maxHP; self.a = attack; self.d = defense; self.r = reach; self.l = mobility; self.m = maxHP;
+		self.HP = maxHP; self.a = attack; self.d = defense; self.r = reach; self.l = mobility; self.m = maxHP
+
+		unitsList.append(self)
+
+	# Rendering
+	def spawn(self, x, y):
+		self.t = turtle.Turtle()
+		self.t.shape('square'); self.t.penup(); self.t.speed(0)
+		self.t.goto(x*110, y*110)
+		self.coors = [x, y]
 
 	# Common methods, might add more later
 	def attack(self, other):
