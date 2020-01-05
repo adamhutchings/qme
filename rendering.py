@@ -7,6 +7,7 @@ from classdefs import Tile, tilesDict, textureDict
 # Key is tile place, value is image used
 tileImageDict = {}
 
+# First-pass putting every tile in the image dict
 def load_image_dict():
 	for tile in tilesDict.values():
 
@@ -14,7 +15,7 @@ def load_image_dict():
 		tileImageDict[tile] = 'square'
 
 def in_screen(tile):
-	if (tile.t.xcor() < -400 or tile.t.xcor() > 400) and (tile.t.ycor() < -400 or tile.t.ycor() > 400):
+	if (tile.t.xcor() < -450 or tile.t.xcor() > 450) and (tile.t.ycor() < -450 or tile.t.ycor() > 450):
 		return False
 
 	return True
