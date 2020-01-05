@@ -7,7 +7,7 @@ from _tkinter import TclError
 from classdefs import Button, btns, Tile, tilesDict, TileField, wn, load_texts
 from level_gen import mkworld
 from scrolling import init_binds
-from rendering import update_texts
+from rendering import load_image_dict, update_texts
 
 # Window boilerplate
 wn.title('Loading...')
@@ -26,6 +26,7 @@ wn.title('Questionable means of exploration')
 init_binds(wn)
 
 # Textures
+load_image_dict()
 load_texts()
 
 # Removed button, now uses textures (NOT TESTED)
