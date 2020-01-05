@@ -4,10 +4,11 @@ import math
 from _tkinter import TclError
 
 # Other module imports
-from classdefs import Button, btns, Tile, tilesDict, TileField, wn, load_texts
+from classdefs import *
 from level_gen import mkworld
 from scrolling import init_binds
-from rendering import load_image_dict, update_texts
+from rendering import *
+from troopstats import *
 
 # Window boilerplate
 wn.title('Loading...')
@@ -29,7 +30,9 @@ init_binds(wn)
 load_image_dict()
 load_texts()
 
-# Removed button, now uses textures (NOT TESTED)
+# Test warrior (no texture for now)
+w1 = Soldier()
+w1.spawn(0, 0)
 
 def game():
 
