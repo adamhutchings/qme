@@ -7,10 +7,11 @@ from classdefs import Tile, tilesDict, textureDict
 # Key is tile place, value is image used
 tileImageDict = {}
 
-for tile in tilesDict.values():
+def load_image_dict():
+	for tile in tilesDict.values():
 
-	# Square is the default shape
-	tileImageDict[tile] = 'square'
+		# Square is the default shape
+		tileImageDict[tile] = 'square'
 
 def in_screen(tile):
 	if (tile.t.xcor() < -400 or tile.t.xcor() > 400) and (tile.t.ycor() < -400 or tile.t.ycor() > 400):
@@ -19,7 +20,7 @@ def in_screen(tile):
 	return True
 
 def update_texts():
-	for tile in tileImageDict.values():
+	for tile in tileImageDict:
 		if in_screen(tile):
 
 			# Not updating the image if we don't have to
