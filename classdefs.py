@@ -61,6 +61,7 @@ def load_texts():
 		# This 'adds' the shape for use by the window
 		wn.addshape(tex)
 
+# For creating the game board
 class Tile():
 	# Tiles have a terrain, position, and belonging units (also turtles, later.)
 	def __init__(self, terrain, position, wn):
