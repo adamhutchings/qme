@@ -90,7 +90,7 @@ def complete():
 	for tile in final_output.keys():
 		if final_output[tile] == 'water':
 			oc = True
-			for other in radius(tile, 1.5):
+			for other in radius(tile, 1):
 				if final_output[other] not in ['deep', 'water']:
 					oc = False
 
