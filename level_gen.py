@@ -32,6 +32,7 @@ def create_centers(size):
 				if final_output[center] == 'water':
 					final_output[center] = random.choice(['water', 'deep', 'deep'])
 
+# For calculating distance to the nearest centers
 def distance(tile1, tile2):
 	return math.sqrt((tile1[0] - tile2[0])**2 + (tile1[1] - tile2[1])**2)
 
