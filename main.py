@@ -4,9 +4,10 @@ import math
 from _tkinter import TclError
 
 # Other module imports
-from classdefs import Button, btns, Tile, tilesList, TileField, find_tile, wn, load_texts
+from classdefs import Button, btns, Tile, tilesDict, TileField, wn, load_texts
 from level_gen import mkworld
 from scrolling import init_binds
+from rendering import update_texts
 
 # Window boilerplate
 wn.title('Loading...')
@@ -34,9 +35,8 @@ def game():
 	while True:
 		wn.update()
 
-		# Loading tiles
-		for tile in tilesList:
-			tile.reload()
+		# Updating textures
+		update_texts()
 
 try:
 	game()

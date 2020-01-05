@@ -37,14 +37,10 @@ class Button():
 	def hide(self):
 		self.t.goto(1000, 1000); self.i.goto(1000, 1000)
 
-tilesList = []
+# Key is coors, value is tile
+tilesDict = {}
 
-# Finding a tile
-# Takes in a list
-def find_tile(coors):
-	for tile in tilesList:
-		if tile.p == coors:
-			return tile
+# No need for find_tile anymore, because of the dict
 
 # Terrain colors for tiles
 # Will replace with textures later
@@ -64,20 +60,11 @@ class Tile():
 		self.t.speed(0); self.t.penup(); self.t.shape('square'); self.t.shapesize(stretch_len = 5, stretch_wid = 5)
 		self.t.goto(position[0]*110, position[1]*110); self.u = None # Note that *110 is 20*5 (size) + 10 (border)
 
-		tilesList.append(self); self.p = position; self.tr = terrain
-
-	def reload(self):
-		# Textures
-
-		if (self.t.xcor() < -400 or self.t.xcor() > 400) and (self.t.ycor() < -400 or self.t.ycor() > 400):
-			self.t.hideturtle()
-		else:
-			self.t.shape(textureDict[self.tr]); 
+		self.p = position; tilesDict[tuple(self.p)] = self; self.tr = terrain; self.t.shape('square')
 
 class TileField():
 	# To create a large field of tiles - 'reading' from map.
 	def __init__(self, size, wmap): # Size is doubled plus one
-		tileDict = {} # key - coords; value - Tile instance
 		for i in range(-size, size+1):
 			for j in range(-size, size+1):
 
