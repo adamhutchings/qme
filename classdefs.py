@@ -49,6 +49,7 @@ textureDict = {
 	'plains':'Textures/plains.gif', 'high': 'Textures/high-mountains.gif', 'deep':'Textures/deep-ocean.gif', 'desert': 'Textures/desert.gif'
 }
 
+# This allows the screen to use the textures
 def load_texts():
 	for tex in textureDict.values():
 		wn.addshape(tex)
