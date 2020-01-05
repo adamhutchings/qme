@@ -86,17 +86,6 @@ def complete():
 				if final_output[other] not in ['deep', 'water']:
 					final_output[tile] = 'water'
 
-	# Making shallow water deep far away from land
-	for tile in final_output.keys():
-		if final_output[tile] == 'water':
-			oc = True
-			for other in radius(tile, 1):
-				if final_output[other] not in ['deep', 'water']:
-					oc = False
-
-			if oc:
-				final_output[tile] = 'deep'
-
 	# Adding splotches of fertile plains
 	for tile in final_output.keys():
 		if final_output[tile] in ['plains', 'desert', 'forest'] and random.randrange(1, 10) == 5:
@@ -137,5 +126,16 @@ def mkworld(size):
 					for other in radius(tile, 1.5):
 						if final_output[other] not in ['water', 'deep']:
 							final_output[other] = 'water'
+
+	# Making shallow water deep far away from land
+	for tile in final_output.keys():
+		if final_output[tile] == 'water':
+			oc = True
+			for other in radius(tile, 1):
+				if final_output[other] not in ['deep', 'water']:
+					oc = False
+
+			if oc:
+				final_output[tile] = 'deep'
 
 	return final_output
