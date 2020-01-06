@@ -100,6 +100,10 @@ class Unit():
 	def spawn(self, x, y):
 		self.t = turtle.Turtle()
 		self.t.shape('square'); self.t.penup(); self.t.speed(0)
+
+		# Textures are 50 wide, 75 tall
+		self.t.shapesize(stretch_len = 2, stretch_wid = 3)
+
 		self.t.goto(x*110, y*110)
 		self.coors = [x, y]
 
