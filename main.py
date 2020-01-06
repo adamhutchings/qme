@@ -30,10 +30,6 @@ init_binds(wn)
 load_image_dict()
 load_texts()
 
-# Test warrior (no texture for now)
-w1 = Soldier()
-w1.spawn(0, 0)
-
 def game():
 
 	while True:
