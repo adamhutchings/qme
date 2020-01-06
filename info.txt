@@ -1,0 +1,6 @@
+QME is a 4X game whose name changes throughout the game (later it will).
+
+So far, the functionality it has is:
+	- Creating a level with textures
+	- Moving around through said level
+	- (Untextured as of yet) troops with different (currently unused) stats
