@@ -1,12 +1,16 @@
 # This is for creating fields of tiles
 
+# For, you know, random generation
 import random
+
+# For distances
 import math
 
 final_output = {}
 
 tileTypes = ['mountain', 'water', 'plains', 'forest', 'fertile', 'high', 'deep', 'desert']
 
+# Make empty world
 def start_world(size):
 	for i in range(-size, size+1):
 		for j in range(-size, size+1):
@@ -27,7 +31,7 @@ def create_centers(size):
 				if final_output[tile] != 'fertile':
 					break
 
-			# Some centers should be deep
+			# Not as many shallow water centers
 			for center in centers:
 				if final_output[center] == 'water':
 					final_output[center] = random.choice(['water', 'deep', 'deep'])
@@ -40,6 +44,7 @@ def distance(tile1, tile2):
 def radius(tile, dis):
 	return [near for near in final_output.keys() if distance(tile, near) <= dis]
 
+# NOTE - Centers cannot be more than 8 away.
 def nearest_center(tile):
 	for dis in range(0, 8):
 		for other in radius(tile, dis):
@@ -50,7 +55,7 @@ def nearest_center(tile):
 	centers.append(tile); return tile
 
 fadeLevels = {'mountain': 6, 'water': 1.5, 'forest': 3.5, 'plains': 2.5,
-'high':10, 'deep':2.5, 'desert':3.5, 'fertile':5}
+'high':8, 'deep':2.5, 'desert':3.5, 'fertile':5}
 
 # Now, center types spread to nearby tiles
 def spread():
@@ -64,9 +69,16 @@ def spread():
 
 		try:
 			fade = fadeLevels[final_output[cen]]
+
+		# If the tile has no type
+		# Add a new one
 		except KeyError:
 			final_output[cen] = random.choice(tileTypes); fade = fadeLevels[final_output[cen]]
 
+		# Fade levels from center:
+		# The percentage chance of having the same
+		# terrain as the center starts out at 100 but
+		# fades according to the level of 'fade'.
 		if random.randrange(1, 99) < 100 - fade*(distance(tile, cen)):
 			final_output[tile] = final_output[cen]
 		else:
@@ -137,5 +149,10 @@ def mkworld(size):
 
 			if oc:
 				final_output[tile] = 'deep'
+
+	# There seem to be no high mountains, let's change that!
+	for tile in final_output.keys():
+		if final_output[tile] == 'mountain' and random.randrange(1, fadeLevels['high']) == 1:
+			final_output[tile] = 'high'
 
 	return final_output
