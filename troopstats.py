@@ -33,6 +33,7 @@ class Shieldman(BasicUnit):
 		super().__init__(15, 2, 3)
 
 # Archers, catapults, spearmen and pikemen
+# Noice the lowered defense
 class WeakRanged(Unit):
 	def __init__(self, maxHP, attack, reach):
 		super().__init__(maxHP, attack, 0.8, reach, 1)

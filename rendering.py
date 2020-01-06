@@ -14,6 +14,7 @@ def load_image_dict():
 		# Square is the default shape
 		tileImageDict[tile] = 'square'
 
+# 450, not 400, so edge tiles still render
 def in_screen(tile):
 	if (tile.t.xcor() < -450 or tile.t.xcor() > 450) and (tile.t.ycor() < -450 or tile.t.ycor() > 450):
 		return False
