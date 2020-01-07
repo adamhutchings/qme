@@ -103,6 +103,24 @@ def complete():
 		if final_output[tile] in ['plains', 'desert', 'forest'] and random.randrange(1, 10) == 5:
 			final_output[tile] = 'fertile'
 
+# If side is 'lower', then the function runs
+# if concentration lower than desired.
+def _change(tCounts, typesList, commonness, side, rarity, outputs, size):
+	tc = 0
+	for terrain in typesList:
+		tc += tCounts[terrain]
+
+	# Making the condition
+	condition = size*commonness > tc if side == 'lower' else size*commonness < tc
+
+	if condition:
+		for tile in final_output:
+			if final_output[tile] in typesList:
+				if random.randrange(1, rarity) == 2:
+					for other in radius(tile, 1.5):
+						if final_output[other] in typesList:
+							final_output[other] = random.choice(outputs)
+
 def mkworld(size):
 	start_world(size); create_centers(size); spread(); complete()
 
@@ -118,26 +136,14 @@ def mkworld(size):
 
 	size = len(final_output.keys())
 
-	if tCounts['mountain'] + tCounts['high'] > size/8:
-		for tile in final_output.keys():
-			if final_output[tile] == 'mountain' or final_output[tile] == 'high':
-				final_output[tile] = random.choice(['plains', 'fertile', 'water', 'mountain'])
+	'''Remember that the _change args go in order - 
+	tCounts, things to replace, triggering amount, 
+	which order the bound goes, the chance of replacement,
+	which types may replace, and size'''
 
-	if tCounts['water'] + tCounts['deep'] > size*2/3:
-		for tile in final_output:
-			if final_output[tile] in ['water', 'deep']:
-				if random.randrange(1, 30) == 5:
-					for other in radius(tile, 1.5):
-						if final_output[other] in ['water', 'deep']:
-							final_output[other] = random.choice(['plains', 'forest', 'desert'])
-
-	elif tCounts['water'] + tCounts['deep'] < size/3:
-		for tile in final_output:
-			if final_output[tile] not in ['water', 'deep']:
-				if random.randrange(1, 30) == 5:
-					for other in radius(tile, 1.5):
-						if final_output[other] not in ['water', 'deep']:
-							final_output[other] = 'water'
+	_change(tCounts, ['mountain', 'high'], 1/8, 'upper', 5, tileTypes, size)
+	_change(tCounts, ['water', 'deep'], 2/3, 'upper', 20, ['plains', 'forest', 'desert'], size)
+	_change(tCounts, ['water', 'deep'], 1/3, 'lower', 15, tileTypes, size)
 
 	# Making shallow water deep far away from land
 	for tile in final_output.keys():
