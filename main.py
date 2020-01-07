@@ -35,6 +35,10 @@ init_binds(wn)
 load_image_dict()
 load_texts()
 
+# Init game states
+playerState = GameState(10)
+playerState.init_lands([0, 0])
+
 def game():
 
 	while True:
