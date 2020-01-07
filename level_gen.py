@@ -28,7 +28,7 @@ def create_centers(size):
 			# Centers can't be fertile plains
 			while True:
 				final_output[tile] = random.choice(tileTypes)
-				if final_output[tile] != 'fertile':
+				if final_output[tile] not in ['fertile', 'high']:
 					break
 
 			# Not as many shallow water centers
