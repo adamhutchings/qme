@@ -3,7 +3,7 @@ import turtle
 from Textures import *
 
 # List of buttons, in case needed later
-btns = []
+buttonsList = []
 
 # The window def itself is here because
 # it used to be in main and raised lots
@@ -108,11 +108,16 @@ class Unit():
 		self.coors = [x, y]
 
 	# Common methods, might add more later
-	def attack(self, other):
-		other.HP -= self.a/other.d
 
 	def die(self):
 		del self
+
+	def attack(self, other):
+		other.HP -= self.a/other.d
+
+		# Checking for death
+		if other.HP <= 0:
+			other.die()
 
 	def heal(self):
 		self.HP = self.m
@@ -127,12 +132,11 @@ from level_gen import radius
 class GameState():
 
 	# Will store the amount of coins, the tiles owned, the tiles seen, and the current units/positions
-	def __init__(self, wealth, owned, vis, unitDict):
-		self.w = 10
-		self.ts = []
-		self.o = []
-		self.v = []
-		self.u = {}
+	def __init__(self, wealth):
+		self.w = wealth # Money
+		self.o = [] # Tiles owned
+		self.v = [] # Tiles visible
+		self.u = {} # unitDict
 
 	# Coors is a list
 	def init_lands(self, centerCoors):
