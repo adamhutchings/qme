@@ -10,6 +10,8 @@ from classdefs import unitsList, buttonsList, Unit
 # also works for units.
 from rendering import in_screen
 
+# For seeing if the unit is player-owned or not
+from main import playerState
 # Global selectedUnit
 selectedUnit = None
 
@@ -77,12 +79,16 @@ def attack_unit(x, y):
 		if click_in_unit(x, y, unit) and in_screen(unit):
 
 			# Bringing up unit info
-			if unit == selected_unit:
+			# If the unit is owned by the player
+			if unit in playerState.u.keys():
 				unit_info(unit)
 
 			else:
 
 				# Make the attack
+
+				# NOTE: Add condition here later
+
 				selectedUnit.attack(unit)
 
 def move_unit(x, y):
