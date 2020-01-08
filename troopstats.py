@@ -6,10 +6,7 @@ from classdefs import Unit
 
 	class UnitType(Unit):
 		def __init__(self):
-			super().__init__(a, b, c, d, e)
-
-	There also migh tbe 'default' inherited classes
-	to be code less monotonous.'''
+			super().__init__(a, b, c, d, e) '''
 
 # Basic reach and mobility.
 class BasicUnit(Unit):
