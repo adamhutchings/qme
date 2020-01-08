@@ -5,7 +5,6 @@ from _tkinter import TclError
 
 # Other module imports
 from classdefs import *
-from level_gen import mkworld
 from scrolling import init_binds
 from rendering import *
 from troopstats import *
@@ -38,6 +37,9 @@ load_texts()
 # Init game states
 playerState = GameState(10)
 playerState.init_lands([0, 0])
+
+# Making the global game state
+tGame = GlobalGameState([playerState], world)
 
 def game():
 
