@@ -117,7 +117,12 @@ class Unit():
 		del self
 
 	def attack(self, other):
-		other.HP -= self.a/other.d
+
+		# try in case other.d is 0
+		try:
+			other.HP -= self.a/other.d
+		except ZeroDivisionError:
+			other.die()
 
 		# Checking for death
 		if other.HP <= 0:
