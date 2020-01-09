@@ -50,8 +50,10 @@ tilesDict = {}
 # Terrain colors for tiles
 # Will replace with textures later
 textureDict = {
-	'mountain':'Textures/mountains.gif', 'fertile':'Textures/fertile-plains.gif', 'water':'Textures/ocean.gif', 'forest':'Textures/forest.gif',
-	'plains':'Textures/plains.gif', 'high': 'Textures/high-mountains.gif', 'deep':'Textures/deep-ocean.gif', 'desert': 'Textures/desert.gif'
+	'mountain':'Textures/Terrain/mountains.gif', 'fertile':'Textures/Terrain/fertile-plains.gif',
+	'water':'Textures/Terrain/ocean.gif', 'forest':'Textures/Terrain/forest.gif',
+	'plains':'Textures/Terrain/plains.gif', 'high': 'Textures/Terrain/high-mountains.gif',
+	'deep':'Textures/Terrain/deep-ocean.gif', 'desert': 'Textures/Terrain/desert.gif'
 }
 
 # This allows the screen to use the textures
