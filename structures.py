@@ -12,6 +12,8 @@ class Structure():
 		self.t.goto(location[0], location[1])
 		wn.addshape(texture); self.t.shape(texture)
 
+		self.loc = location
+
 	def destroy(self):
 		del self
 
@@ -49,3 +51,29 @@ class City(Structure):
 
 		# To make sure there's no spillover
 		self.check()
+
+class Farm(Structure):
+
+	# Farms produce 2 food for the city.
+	# Keep in mind that food is used sending
+	# away troops.
+
+	def __init__(self, texture, location, wn, belongCity):
+		super().__init__(texture, location, wn)
+
+		self.city = belongCity
+
+class Barracks(Structure):
+
+	# Barracks house units on the move and
+	# can be grown into a city. Units on the
+	# move without barracksn cost 1 resource per
+	# turn.
+
+	def __init__(self, texture, location, wn, units):
+		super().__init__(texture, location, wn)
+		self.u = units
+
+		# Letting units know that they have a barracks
+		for unit in self.u:
+			unit.bar = self
