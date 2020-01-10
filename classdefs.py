@@ -99,31 +99,38 @@ unitsList = []
 class Unit():
 
 	# player is a GameState
-	def __init__(self, maxHP, attack, defense, reach, mobility, city, player):
+	def __init__(self, maxHP, attack, defense, reach, mobility, city):
 		self.HP = maxHP; self.a = attack; self.d = defense; self.r = reach; self.l = mobility; self.m = maxHP
 
 		unitsList.append(self)
 
-		self.city = city
 		self.bar = None
 
-		self.player = player
-
 	# Rendering
-	def spawn(self, x, y):
+	# city is a City() object.
+	def spawn(self, player, city, cost):
 		self.t = turtle.Turtle()
 		self.t.shape('square'); self.t.penup(); self.t.speed(0)
 
 		# Textures are 50 wide, 75 tall
 		self.t.shapesize(stretch_len = 2, stretch_wid = 3)
 
-		self.t.goto(x*110, y*110)
+		self.t.goto(city.loc[0]*110, city.loc[1]*110)
 		self.coors = [x, y]
 
-	# Common methods, might add more later
+		self.player = player
+		self.city = city
 
-	def die(self):
+		self.player.w -= cost
+
+		# For partial reimbursement later
+		self.cost = cost
+
+	def die(self, reimbursement):
 		del self
+
+		if reimbursement:
+			self.player.w += self.cost//3
 
 	def attack(self, other):
 
