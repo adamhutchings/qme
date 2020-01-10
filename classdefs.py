@@ -97,10 +97,17 @@ unitsList = []
 
 # And now - creation of units
 class Unit():
-	def __init__(self, maxHP, attack, defense, reach, mobility):
+
+	# player is a GameState
+	def __init__(self, maxHP, attack, defense, reach, mobility, city, player):
 		self.HP = maxHP; self.a = attack; self.d = defense; self.r = reach; self.l = mobility; self.m = maxHP
 
 		unitsList.append(self)
+
+		self.city = city
+		self.bar = None
+
+		self.player = player
 
 	# Rendering
 	def spawn(self, x, y):
@@ -132,6 +139,11 @@ class Unit():
 
 	def heal(self):
 		self.HP = self.m
+
+	# Cost without barracks
+	def incur_cost(self):
+		if self.bar is not None:
+			self.player.w -= 1
 
 # Unit stats
 from troopstats import *
