@@ -1,4 +1,5 @@
-from classdefs import tilesDict, unitsList
+from units import unitsList
+from tiles import tilesDict
 
 # 'Scrolling' in all directions
 

@@ -111,7 +111,7 @@ def move_unit(x, y):
 
 			''' if tile in allowed_moves(selectedUnit):'''
 
-			selectedUnit.t.goto(tile.t.xcor(), tile.t.ycor())
+			selectedUnit.move([tile.t.xcor(), tile.t.ycor()])
 			return None
 
 def player_turn(wn):

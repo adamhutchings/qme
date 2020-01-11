@@ -2,7 +2,7 @@
 # one complete rendering cycle.
 
 # Imports
-from classdefs import Tile, tilesDict, textureDict
+from tiles import Tile, tilesDict, textureDict
 
 # Key is tile place, value is image used
 tileImageDict = {}
