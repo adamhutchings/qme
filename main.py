@@ -4,12 +4,16 @@ import turtle
 from _tkinter import TclError
 
 # Other module imports
-from classdefs import *
+from gamestate import *
+from buttons import *
 from scrolling import init_binds
 from rendering import *
-from troopstats import *
+from units import *
+from tiles import *
+from level_gen import mkworld
 
 # Window boilerplate
+wn = turtle.Screen()
 wn.title('Loading...')
 wn.setup(height = 800, width = 800)
 wn.bgcolor('#464646') # Dark gray
@@ -24,7 +28,7 @@ WORLD_SIZE = 20
 # World size is actually WORLD_SIZE*2 + 1, so
 # this world is actually 41 tiles across.
 
-world = TileField(WORLD_SIZE, mkworld(WORLD_SIZE))
+world = TileField(WORLD_SIZE, mkworld(WORLD_SIZE), wn)
 wn.title('Questionable means of exploration')
 
 # Scrolling
@@ -32,7 +36,7 @@ init_binds(wn)
 
 # Textures
 load_image_dict()
-load_texts()
+load_texts(wn)
 
 # Init game states
 playerState = GameState(10)
