@@ -19,7 +19,7 @@ class Structure():
 
 class City(Structure):
 
-	def __init__(self, location, spread, wn):
+	def __init__(self, location, spread, wn, owner):
 		super().__init__('Textures/City/city.gif', location, wn)
 
 		# For stats about the city
@@ -33,6 +33,8 @@ class City(Structure):
 		# Territories
 		# For how radius works, see level_gen.py
 		self.terr = radius(location, spread)
+
+		self.owner = owner
 
 	def check(self):
 
@@ -84,3 +86,12 @@ class Port(Structure):
 		super().__init__(texture, location, wn)
 		self.city = belongCity
 		self.city.fillbar(3)
+
+class Mine(Structure):
+
+	def __init__(self, texture, location, wn, belongCity):
+		duper().__init__(texture, location, wn)
+		self.city = belongCity
+
+	def give_coins(self):
+		self.city.owner.w += 3
