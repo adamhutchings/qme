@@ -10,7 +10,7 @@ class Structure():
 		self.t = turtle.Turtle()
 		self.t.penup();
 		self.t.goto(location[0], location[1])
-		wn.addshape(texture); self.t.shape(texture)
+		self.t.shape(texture)
 
 		self.loc = location
 
@@ -77,3 +77,10 @@ class Barracks(Structure):
 		# Letting units know that they have a barracks
 		for unit in self.u:
 			unit.bar = self
+
+class Port(Structure):
+
+	def __init__(self, texture, location, wn, belongCity):
+		super().__init__(texture, location, wn)
+		self.city = belongCity
+		self.city.fillbar(3)
